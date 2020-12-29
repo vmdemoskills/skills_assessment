@@ -1,0 +1,18 @@
+version: '3.8'
+#===== General Use =====
+#  docker-compose run --rm tf init (Pulls provider from Terraform (Repo pull to local machine)
+#  docker-compose run --rm tf fmt (Cleans configuration structure in files)
+#  docker-compose run --rm tf validate (Syntax and Reference checks)
+#  docker-compose run --rm tf plan  (Compares against AWS resources and provides feedback on the actions that take place)
+#  docker-compose run --rm tf apply (Applies what was previously displayed using the 'plan' argument)
+#  docker-compose run --rm tf destroy (Removes all assets defined within directory tf templates)
+services:
+  tf:
+    image: hashicorp/terraform:0.14.3
+    volumes:
+      - .:/infra
+    working_dir: /infra
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
